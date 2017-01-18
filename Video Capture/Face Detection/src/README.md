@@ -11,17 +11,7 @@ From the Windows command line (not the python shell):
 
 set CONDA_FORCE_32bit=1
 
-conda create -n py_275 python=2.7.5
-
 activate py_275
 
 
-From the new opencv_env command propmt:
-
-conda install numpy=1.11.3
-
-conda install enum34
-
-conda install -c menpo opencv3=3.1.0
-
-
+(py_275) > python vid_capture.py
