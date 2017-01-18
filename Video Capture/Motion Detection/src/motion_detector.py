@@ -6,18 +6,12 @@ import cv2
 
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
-ap.add_argument("-v", "--video", help="path to the video file")
-ap.add_argument("-a", "--min-area", type=int, default=500, help="minimum area size")
+ap.add_argument("-a", "--min-area", type=int, default=500, help="minimum contour area size")
 args = vars(ap.parse_args())
 
-# if the video argument is None, then we are reading from webcam
-if args.get("video", None) is None:
-	camera = cv2.VideoCapture(0)
-	time.sleep(0.25)
-
-# otherwise, we are reading from a video file
-else:
-	camera = cv2.VideoCapture(args["video"])
+# read form the webcam
+camera = cv2.VideoCapture(0)
+time.sleep(0.25)
 
 # initialize the first frame in the video stream
 firstFrame = None
@@ -26,12 +20,12 @@ firstFrame = None
 while True:
 	# grab the current frame and initialize the occupied/unoccupied
 	# text
-	(grabbed, frame) = camera.read()
+	(isFrame, frame) = camera.read()
 	text = "Unoccupied"
 
 	# if the frame could not be grabbed, then we have reached the end
 	# of the video
-	if not grabbed:
+	if not isFrame:
 		break
 
 	# resize the frame, convert it to grayscale, and blur it
@@ -66,10 +60,9 @@ while True:
 		text = "Changed"
 
 	# draw the text and timestamp on the frame
-	cv2.putText(frame, "Image Status: {}".format(text), (10, 20),
-		cv2.FONT_HERSHEY_DUPLEX, 0.5, (0, 0, 255), 2)
-	cv2.putText(frame, datetime.datetime.now().strftime("%A %d %B %Y %I:%M:%S%p"),
-		(10, frame.shape[0] - 10), cv2.FONT_HERSHEY_DUPLEX, 0.35, (0, 0, 255), 1)
+	cv2.putText(frame, "Image Status: {}".format(text), (10, 20), cv2.FONT_HERSHEY_DUPLEX, 0.5, (0, 0, 255), 2)
+	cv2.putText(frame, datetime.datetime.now().strftime("%A %d %B %Y %I:%M:%S%p"), (10, frame.shape[0] - 10), 
+		    cv2.FONT_HERSHEY_DUPLEX, 0.35, (0, 0, 255), 1)
 
 	# show the frame and record if the user presses a key
 	cv2.imshow("Camera Feed", frame)
