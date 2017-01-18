@@ -14,4 +14,4 @@ set CONDA_FORCE_32bit=1
 activate py_275
 
 
-(py_275) > python vid_capture.py
+(py_275) > python vid_capture_face_detection.py
