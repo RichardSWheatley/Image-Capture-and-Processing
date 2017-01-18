@@ -1,5 +1,8 @@
 # Image-Capture-and-Processing
-python2.7.5 and opencv3.1.0
+32-bit python2.7.5
+opencv3.1.0
+numpy1.11.3
+enum1.1.6
 
 To recreate the anaconda environment.
 Install Anaconda for Windows..any version. I installed windows 64-bit.
