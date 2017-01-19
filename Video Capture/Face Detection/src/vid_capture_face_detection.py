@@ -39,7 +39,11 @@ hyst = hist_type.NORMAL
 
 while(True):
     # Capture frame-by-frame
-    ret, frame = cap.read()
+	(isFrame, frame) = cap.read()
+
+	# If not valid frame, break operation
+	if not isFrame:
+		break
 
     # clone frame for side by side comparision
     img2 = frame.copy()

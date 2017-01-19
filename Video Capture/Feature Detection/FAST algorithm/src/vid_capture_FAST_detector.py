@@ -30,8 +30,12 @@ hyst = hist_type.NORMAL
 fast = cv2.FastFeatureDetector_create()
 
 while(True):
-    # Capture frame-by-frame
-    ret, frame = cap.read()
+	(isFrame, frame) = cap.read()
+
+	# If not valid frame, break operation
+	if not isFrame:
+		break
+
 
     # find and draw the keypoints
     kp = fast.detect(frame,None)

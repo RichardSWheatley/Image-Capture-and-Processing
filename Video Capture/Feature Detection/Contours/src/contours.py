@@ -27,7 +27,11 @@ cap = cv2.VideoCapture(0)
  
 while(True):
     # Capture frame-by-frame
-    ret, frame = cap.read()
+	(isFrame, frame) = cap.read()
+
+	# If not valid frame, break operation
+	if not isFrame:
+		break
 
     img2 = frame.copy()
 

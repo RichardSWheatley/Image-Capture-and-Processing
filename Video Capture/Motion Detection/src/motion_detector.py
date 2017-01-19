@@ -18,13 +18,10 @@ firstFrame = None
 
 # loop over the frames of the video
 while True:
-	# grab the current frame and initialize the occupied/unoccupied
-	# text
-	(isFrame, frame) = camera.read()
-	text = "Unoccupied"
 
-	# if the frame could not be grabbed, then we have reached the end
-	# of the video
+	(isFrame, frame) = cap.read()
+
+	# If not valid frame, break operation
 	if not isFrame:
 		break
 
