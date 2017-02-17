@@ -1,0 +1,232 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      7689,        224]
+NotebookOptionsPosition[      6930,        194]
+NotebookOutlinePosition[      7271,        209]
+CellTagsIndexPosition[      7228,        206]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"OldImage", " ", "=", " ", 
+   RowBox[{"CurrentImage", "[", "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.696246467338621*^9, 3.6962464738989325`*^9}, 
+   3.6962469701493034`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"start", " ", "=", " ", 
+   RowBox[{"SessionTime", "[", "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.696246549742098*^9, 3.6962465555502596`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"file", " ", "=", " ", 
+   RowBox[{"OpenAppend", "[", "\"\<c:\\\\file.txt\>\"", "]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{3.696249734321693*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  "OpenAppend","aofil",
+   "\"\\!\\(\\*RowBox[{\\\"\\\\\\\"c:\\\\\\\\\\\\\\\\file.txt\\\\\\\"\\\"}]\\)\
+ already open as \
+\\!\\(\\*RowBox[{\\\"\\\\\\\"c:\\\\\\\\\\\\\\\\file.txt\\\\\\\"\\\"}]\\).\"",
+   2,29,8,30227277490025535128,"Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.6962493455888233`*^9, 3.6962496822454863`*^9, 
+  3.6962497372229834`*^9}],
+
+Cell[BoxData[
+ TemplateBox[{
+  "OpenAppend","noopen",
+   "\"Cannot open \\!\\(\\*RowBox[{\\\"\\\\\\\"c:\\\\\\\\\\\\\\\\file.txt\\\\\
+\\\"\\\"}]\\).\"",2,29,9,30227277490025535128,"Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.6962493455888233`*^9, 3.6962496822454863`*^9, 
+  3.6962497372679873`*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"While", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"SessionTime", "[", "]"}], " ", "-", " ", "start"}], " ", "<", 
+     " ", "25"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"Image1", " ", "=", " ", "OldImage"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Image2", " ", "=", 
+      RowBox[{"CurrentImage", "[", "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"flow", " ", "=", " ", 
+      RowBox[{"ImageDisplacements", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"Image1", ",", " ", "Image2"}], "}"}], ",", 
+        RowBox[{"MaxIterations", "\[Rule]", "500"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"hers", " ", "=", " ", 
+      RowBox[{"Partition", "[", 
+       RowBox[{
+        RowBox[{"Flatten", "[", "flow", "]"}], ",", " ", 
+        RowBox[{"{", "2", "}"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"herThreshold", " ", "=", " ", 
+      RowBox[{
+       RowBox[{"FindThreshold", "[", "hers", "]"}], " ", "*", "0.2"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"newHers", " ", "=", " ", 
+      RowBox[{"Threshold", "[", 
+       RowBox[{"hers", ",", "herThreshold"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"newAll", " ", "=", " ", 
+      RowBox[{"(", 
+       RowBox[{"hers", " ", "-", " ", "newHers"}], ")"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"herThreshold", " ", "=", " ", 
+      RowBox[{
+       RowBox[{"FindThreshold", "[", "newAll", "]"}], " ", "*", "0.2"}]}], 
+     ";", "\[IndentingNewLine]", 
+     RowBox[{"dis", " ", "=", " ", 
+      RowBox[{"Threshold", "[", 
+       RowBox[{"newAll", ",", "herThreshold"}], "]"}]}], " ", ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"last", " ", "=", " ", 
+      RowBox[{"(", 
+       RowBox[{"newAll", " ", "-", " ", "dis"}], ")"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"WriteLine", "[", 
+      RowBox[{"file", ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Mean", "[", 
+          RowBox[{"last", "[", 
+           RowBox[{"[", 
+            RowBox[{"All", ",", "1"}], "]"}], "]"}], "]"}], ",", 
+         RowBox[{"Mean", "[", 
+          RowBox[{"last", "[", 
+           RowBox[{"[", 
+            RowBox[{"All", ",", "2"}], "]"}], "]"}], "]"}]}], "}"}]}], "]"}], 
+     ";", "\[IndentingNewLine]", 
+     RowBox[{"OldImage", " ", "=", " ", "Image2"}], ";"}]}], 
+   "\[IndentingNewLine]", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.6962464357653074`*^9, 3.696246442318618*^9}, {
+   3.696246561063362*^9, 3.6962465758878813`*^9}, {3.696246770614352*^9, 
+   3.6962467724475355`*^9}, {3.6962468026075506`*^9, 
+   3.6962468692662163`*^9}, {3.6962469516454535`*^9, 
+   3.6962469627165604`*^9}, {3.6962478490771875`*^9, 
+   3.6962478492302027`*^9}, {3.6962479141836977`*^9, 
+   3.6962479626095395`*^9}, {3.6962479970419827`*^9, 3.696247997219*^9}, {
+   3.696248066972975*^9, 3.6962480754288206`*^9}, {3.6962482437876544`*^9, 
+   3.696248244162692*^9}, {3.696248320383313*^9, 3.696248405417816*^9}, 
+   3.6962485136216354`*^9, {3.696248711980469*^9, 3.6962487139716682`*^9}, {
+   3.6962490660808754`*^9, 3.6962490726165295`*^9}, {3.6962493120344687`*^9, 
+   3.696249321681433*^9}, {3.696249647647026*^9, 3.696249667383*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"data", " ", "=", " ", 
+    RowBox[{"Import", "[", "file", "]"}]}], ";"}], "//", " ", 
+  "MatrixForm"}]], "Input",
+ CellChangeTimes->{{3.696246864471737*^9, 3.696246864786768*^9}, {
+  3.6962482895562305`*^9, 3.6962482944027157`*^9}, {3.696249329162181*^9, 
+  3.696249339873252*^9}}],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Import","chtype",
+   "\"First argument \\!\\(\\*RowBox[{\\\"$Failed\\\"}]\\) is not a valid \
+file, directory, or URL specification.\"",2,31,10,30227277490025535128,
+   "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.696249371305395*^9, 3.696249708248086*^9, 
+  3.696249763361597*^9}],
+
+Cell[BoxData[
+ TagBox["Null",
+  Function[BoxForm`e$, 
+   MatrixForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{
+  3.6962470342657146`*^9, 3.6962478626285424`*^9, 3.696248087957073*^9, 
+   3.6962482158038564`*^9, {3.696248285036779*^9, 3.6962482957628517`*^9}, 
+   3.696248680375309*^9, 3.6962487531785884`*^9, 3.696249371325397*^9, 
+   3.696249708272088*^9, 3.6962497633815985`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Close", "[", "file", "]"}], "\[IndentingNewLine]"}]], "Input",
+ CellChangeTimes->{{3.696249175325799*^9, 3.696249306618927*^9}, {
+  3.696249775121773*^9, 3.6962497884901094`*^9}}],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Close","stream",
+   "\"\\!\\(\\*RowBox[{\\\"$Failed\\\"}]\\) is not a string, SocketObject, \
+InputStream[ ], or OutputStream[ ].\"",2,33,11,30227277490025535128,"Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.6962497893461947`*^9}],
+
+Cell[BoxData[
+ RowBox[{"Close", "[", "$Failed", "]"}]], "Output",
+ CellChangeTimes->{3.6962497893471947`*^9}]
+}, Open  ]]
+},
+WindowSize->{1582, 830},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"11.0 for Microsoft Windows (64-bit) (July 28, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 215, 5, 30, "Input"],
+Cell[776, 27, 183, 4, 30, "Input"],
+Cell[CellGroupData[{
+Cell[984, 35, 184, 5, 30, "Input"],
+Cell[1171, 42, 406, 9, 21, "Message"],
+Cell[1580, 53, 324, 7, 21, "Message"]
+}, Open  ]],
+Cell[1919, 63, 3258, 75, 278, "Input"],
+Cell[CellGroupData[{
+Cell[5202, 142, 328, 8, 30, "Input"],
+Cell[5533, 152, 340, 8, 21, "Message"],
+Cell[5876, 162, 384, 8, 30, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6297, 175, 214, 4, 50, "Input"],
+Cell[6514, 181, 288, 6, 21, "Message"],
+Cell[6805, 189, 109, 2, 30, "Output"]
+}, Open  ]]
+}
+]
+*)
+
