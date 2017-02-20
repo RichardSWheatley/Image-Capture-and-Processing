@@ -9,7 +9,7 @@ import cv2
 import numpy as np
 cv2.ocl.setUseOpenCL(False)
 # Initiate ORB detector
-orb = cv2.ORB_create(nfeatures=500)
+orb = cv2.ORB_create(nfeatures=1000)
 
 stream = cv2.VideoCapture(0)
 
