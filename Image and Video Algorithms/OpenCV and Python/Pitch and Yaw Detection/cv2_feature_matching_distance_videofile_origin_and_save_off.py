@@ -8,19 +8,19 @@ Created on Fri Feb  3 12:07:05 2017
 import cv2
 import numpy as np
 cv2.ocl.setUseOpenCL(False)
-# Initiate SIFT detector
+# Initiate ORB detector
 orb = cv2.ORB_create(nfeatures=500)
 
 stream = cv2.VideoCapture(0)
-ret, new_frame = stream.read()
 
 # grab first image
+ret, new_frame = stream.read()
 new_frame = cv2.flip(new_frame, 1)
 old_gray = cv2.cvtColor(new_frame, cv2.COLOR_BGR2GRAY)
 cv2.imshow('frame',new_frame)
 cv2.waitKey(1)
-
-reference_heading = 180.0
+reference_heading = 0.00
+offset = 0.00
 
 while(stream.isOpened()):
     ret, new_frame = stream.read()
@@ -61,27 +61,21 @@ while(stream.isOpened()):
                 mine = pts_right_image - pts_left_image
                 my_heading_string  = "delta-heading: " 
                 my_pitch_string    = "delta-pitch:   "
-                my_heading_string2 = "ref'd-heading: "
                 heading = np.average(mine[:, 0])
                 pitch = np.average(mine[:, 1])
-                reference_heading = heading*0.05625
-
-                degrees = True
-                if degrees == True:
-                    cv2.putText(new_frame, my_pitch_string + "{:10.4f}".format(pitch*0.05625), (30,30), cv2.FONT_HERSHEY_COMPLEX_SMALL, 0.8, (200,200,250), 1, cv2.LINE_AA);
-                    cv2.putText(new_frame, my_heading_string + "{:10.4f}".format(heading*0.05625), (30,60), cv2.FONT_HERSHEY_COMPLEX_SMALL, 0.8, (200,200,250), 1, cv2.LINE_AA);
-                    cv2.putText(new_frame, my_heading_string2 + "{:10.4f}".format(reference_heading), (30,90), cv2.FONT_HERSHEY_COMPLEX_SMALL, 0.8, (200,200,250), 1, cv2.LINE_AA);
-                else:
-                    cv2.putText(new_frame, my_pitch_string + "{:10.4f}".format(pitch), (30,30), cv2.FONT_HERSHEY_COMPLEX_SMALL, 0.8, (200,200,250), 1, cv2.LINE_AA);
-                    cv2.putText(new_frame, my_heading_string + "{:10.4f}".format(heading), (30,60), cv2.FONT_HERSHEY_COMPLEX_SMALL, 0.8, (200,200,250), 1, cv2.LINE_AA);
-                    cv2.putText(new_frame, my_heading_string2 + "{:10.4f}".format(reference_heading), (30,90), cv2.FONT_HERSHEY_COMPLEX_SMALL, 0.8, (200,200,250), 1, cv2.LINE_AA);
+                reference_heading = heading + offset
+				
+                degrees = 0.05625
+                cv2.putText(new_frame, my_pitch_string + "{:10.4f}".format(pitch*degrees), (30,30), cv2.FONT_HERSHEY_COMPLEX_SMALL, 0.8, (200,200,250), 1, cv2.LINE_AA);
+                cv2.putText(new_frame, my_heading_string + "{:10.4f}".format(reference_heading*degrees), (30,60), cv2.FONT_HERSHEY_COMPLEX_SMALL, 0.8, (200,200,250), 1, cv2.LINE_AA);
 
         cv2.imshow('frame',new_frame)      
-        
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    key_check = cv2.waitKey(1) & 0xFF
+    if key_check == ord('q'):
         break
-    elif cv2.waitKey(1) & 0xFF == ord('q'):
+    elif key_check == ord('s'):
         old_gray = new_gray.copy()
+        offset = reference_heading
 
 stream.release()
 cv2.destroyAllWindows()
