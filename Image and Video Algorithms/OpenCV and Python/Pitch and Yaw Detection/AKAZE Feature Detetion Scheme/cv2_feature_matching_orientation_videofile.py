@@ -4,6 +4,13 @@ Created on Fri Feb  3 12:07:05 2017
 
 @author: rwheatley
 """
+# "Fast Explicit Diffusion for Accelerated Features in Nonlinear Scale Spaces"
+# Pablo F. Alcantarilla, J. Nuevo and Adrien Bartoli.
+# In British Machine Vision Conference (BMVC), Bristol, UK, September 2013
+
+# "KAZE Features"
+# Pablo F. Alcantarilla, Adrien Bartoli and Andrew J. Davison.
+# In European Conference on Computer Vision (ECCV), Fiorenze, Italy, October 2012
 
 import cv2
 import numpy as np
