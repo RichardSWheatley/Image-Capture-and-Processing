@@ -9,7 +9,7 @@ import cv2
 import numpy as np
 cv2.ocl.setUseOpenCL(False)
 # Initiate AKAZE detector
-detector = cv2.AKAZE_create(nfeatures=1000)
+detector = cv2.AKAZE_create()
 
 stream = cv2.VideoCapture(0)
 
@@ -34,7 +34,7 @@ while(stream.isOpened()):
         (kp2, desc2) = detector.detectAndCompute(new_gray,None)
 
         # Use Hamming distance, because AKAZE uses binary descriptor by default.
-		bf = cv2.BFMatcher(cv2.NORM_HAMMING)
+        bf = cv2.BFMatcher(cv2.NORM_HAMMING)
         matches = bf.knnMatch(desc1, desc2, k=2)
         
         if(len(matches) > 0):

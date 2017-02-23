@@ -9,7 +9,7 @@ import cv2
 import numpy as np
 cv2.ocl.setUseOpenCL(False)
 # Initiate AKAZE detector
-detector = cv2.AKAZE_create(nfeatures=1000)
+detector = cv2.AKAZE_create()
 
 stream = cv2.VideoCapture(0)
 
@@ -34,7 +34,7 @@ while(stream.isOpened()):
         (kp2, desc2) = detector.detectAndCompute(new_gray,None)
 
         # Use Hamming distance, because AKAZE uses binary descriptor by default.
-		bf = cv2.BFMatcher(cv2.NORM_HAMMING)
+        bf = cv2.BFMatcher(cv2.NORM_HAMMING)
         matches = bf.knnMatch(desc1, desc2, k=2)
         
         if(len(matches) > 0):
@@ -67,8 +67,8 @@ while(stream.isOpened()):
                 reference_heading = heading + offset
 				
                 degrees = 0.05625
-                cv2.putText(new_frame, my_pitch_string + "{:10.4f}".format(pitch*degrees), (30,30), cv2.FONT_HERSHEY_COMPLEX_SMALL, 0.8, (200,200,250), 1, cv2.LINE_AA);
-                cv2.putText(new_frame, my_heading_string + "{:10.4f}".format(reference_heading*degrees), (30,60), cv2.FONT_HERSHEY_COMPLEX_SMALL, 0.8, (200,200,250), 1, cv2.LINE_AA);
+                cv2.putText(new_frame, my_pitch_string + "{:10.4f}".format(pitch*degrees), (30,30), cv2.FONT_HERSHEY_COMPLEX_SMALL, 0.8, (0,0,250), 1, cv2.LINE_AA);
+                cv2.putText(new_frame, my_heading_string + "{:10.4f}".format(reference_heading*degrees), (30,60), cv2.FONT_HERSHEY_COMPLEX_SMALL, 0.8, (0,0,250), 1, cv2.LINE_AA);
 
         cv2.imshow('frame',new_frame)      
     key_check = cv2.waitKey(1) & 0xFF
