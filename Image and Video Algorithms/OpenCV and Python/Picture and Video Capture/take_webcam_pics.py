@@ -15,6 +15,7 @@ def orb_find_features():
    print(np.__version__)
 
    cap = cv2.VideoCapture(0)
+   count = 0
 
    while(1):
        ret,frame = cap.read()
@@ -26,14 +27,14 @@ def orb_find_features():
        
        cv2.imshow("frame",frame)
    
-       k = cv2.waitKey(0)
-       if k == 27:         # wait for ESC key to exit
-           cv2.destroyAllWindows()
+       k = cv2.waitKey(1) & 0xFF
+ 
+       if k == ord('q'):         # wait for ESC key to exit
+           break
        elif k == ord('s'): # wait for 's' key to save and exit
-           cv2.imwrite('img_rects',frame)
-           cv2.destroyAllWindows()
-   
-   
+           cv2.imwrite('img_rects' + str(count) + '.jpg',frame)   
+           count += 1
+           
    cv2.destroyAllWindows()
    cap.release()
    
