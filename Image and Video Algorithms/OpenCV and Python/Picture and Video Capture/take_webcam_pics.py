@@ -10,7 +10,7 @@ import cv2
 cv2.ocl.setUseOpenCL(False)
 
 def orb_find_features():
-   
+   """Find features in an image using the ORB detector"""
    print(cv2.__version__)
    print(np.__version__)
 
@@ -40,6 +40,7 @@ def orb_find_features():
    
 ##        
 def main():
+   """My main mayun"""
     orb_find_features()
     ##print_faces()
     ##wait_for_user()
