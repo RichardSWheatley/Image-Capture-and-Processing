@@ -20,8 +20,7 @@ def orb_find_features():
    while(1):
        ret,frame = cap.read()
        
-       # check to see if we have reached the end of the
-       # video
+       # check to see if we have reached the end of the video
        if not ret:
            break
        
@@ -29,16 +28,14 @@ def orb_find_features():
    
        k = cv2.waitKey(1) & 0xFF
  
-       if k == ord('q'):         # wait for ESC key to exit
+       if k == ord('q'): # wait for ESC key to exit
            break
        elif k == ord('s'): # wait for 's' key to save and exit
            cv2.imwrite('img_rects' + str(count) + '.jpg',frame)   
            count += 1
            
    cv2.destroyAllWindows()
-   cap.release()
-   
-##        
+   cap.release()     
 def main():
    """My main mayun"""
     orb_find_features()
