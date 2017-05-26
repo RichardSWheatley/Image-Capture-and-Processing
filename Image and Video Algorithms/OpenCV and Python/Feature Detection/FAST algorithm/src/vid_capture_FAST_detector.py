@@ -24,10 +24,14 @@ import cv2
 
 cap = cv2.VideoCapture(0)
 
-hyst = hist_type.NORMAL
+#hyst = hist_type.NORMAL
 
 ## Initiate FAST object with default values
-fast = cv2.FastFeatureDetector_create()
+# cv2.FAST_FEATURE_DETECTOR_TYPE_5_8 or
+# cv2.FAST_FEATURE_DETECTOR_TYPE_7_12 or
+#  cv2.FAST_FEATURE_DETECTOR_TYPE_9_16 or
+# Leave blank for Corner Detection
+fast = cv2.FastFeatureDetector_create(threshold=5, type=cv2.FAST_FEATURE_DETECTOR_TYPE_5_8)
 
 while(True):
     (isFrame, frame) = cap.read()

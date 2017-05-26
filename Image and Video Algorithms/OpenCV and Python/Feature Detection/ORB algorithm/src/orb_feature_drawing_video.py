@@ -35,6 +35,15 @@ def orb_find_features():
           frame_gray1 = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
       
           # Initiate ORB detector
+          # default values are:
+          # int nfeatures=500
+          # float scaleFactor=1.2f
+          # int nlevels=8
+          # int edgeThreshold=31
+          # int firstLevel=0
+          # int WTA_K=2
+          # int scoreType=ORB::HARRIS_SCORE
+          # int patchSize=31
           orb = cv2.ORB_create()
        
           # find the keypoints and descriptors with ORB
